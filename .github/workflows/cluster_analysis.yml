@@ -11,8 +11,8 @@ on:
       - v0.*
     paths:
       - "**/*.py"
-      - .github/workflows/cluster_analyse.yml
-      - "tests/tools/cluster_analyse/**"
+      - .github/workflows/cluster_analysis.yml
+      - "tests/cluster_analysis/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -39,8 +39,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip3 install pandas plotly json
+          pip install -r requirements.txt
+          pip install -e .
 
       - name: Run cluster_analyse tests
         run: |
-          pytest -s -x tests/tools/cluster_analyse
+          pytest -s -x tests/cluster_analysis
