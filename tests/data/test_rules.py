@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from rl_insight.data.rules import DataValidationError, PathExistsRule
+from rl_insight.data.rules import (DataValidationError, PathExistsRule, MstxJsonFileExistsRule,
+                                   MstxJsonFieldValidRule)
 
 
 def test_path_exists_rule_accepts_existing_directory(tmp_path):
@@ -37,3 +38,29 @@ def test_data_validation_error_string_includes_error_details():
     assert "Data validation failed" in text
     assert "line1" in text
     assert "line2" in text
+
+
+def test_mstx_jsonfile_exists(profile="../../data/mstx_data/mstx_profile"):
+    path_rule = PathExistsRule()
+    file_rule = MstxJsonFileExistsRule()
+    assert path_rule.check(profile) is True
+    assert file_rule.check(profile) is True
+
+
+def test_mstx_jsonfile_exists_with_fake_path():
+    file_rule = MstxJsonFileExistsRule()
+    fake_path = "fake_path"
+    assert file_rule.check(fake_path) is False
+
+
+def test_mstx_json_fields_valid(profile="../../data/mstx_data/mstx_profile"):
+    path_rule = PathExistsRule()
+    filed_rule = MstxJsonFieldValidRule()
+    assert path_rule.check(profile) is True
+    assert filed_rule.check(profile) is True
+
+
+def test_mstx_json_fields_valid_with_fake_path():
+    filed_rule = MstxJsonFieldValidRule()
+    fake_path = "fake_path"
+    assert filed_rule.check(fake_path) is False
