@@ -15,8 +15,14 @@
 """Base data definitions for RL-Insight."""
 
 from typing import Any, List
-from .rules import (ValidationRule, PathExistsRule, DataValidationError, MstxJsonFileExistsRule,
-                    MstxJsonFieldValidRule)
+from .rules import (
+    ValidationRule,
+    PathExistsRule,
+    DataValidationError,
+    ParserOutputValidatorRule,
+    MstxJsonFileExistsRule,
+    MstxJsonFieldValidRule
+)
 from enum import Enum
 from loguru import logger
 
@@ -39,7 +45,11 @@ class DataChecker:
     rules: dict[DataEnum, List[ValidationRule]] = {
         DataEnum.MULTI_JSON: [PathExistsRule(), MstxJsonFileExistsRule(), MstxJsonFieldValidRule()],
         DataEnum.VERL_LOG: [],
-        DataEnum.SUMMARY_EVENT: [],
+        DataEnum.SUMMARY_EVENT: [
+            ParserOutputValidatorRule(
+                domains=["role", "name", "rank_id", "start_time_ms", "end_time_ms"]
+            )
+        ],
         DataEnum.UNKNOWN: [],
     }
 
