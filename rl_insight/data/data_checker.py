@@ -24,9 +24,9 @@ from .rules import (
     DataValidationError,
     ParserOutputValidatorRule,
     MstxJsonFileExistsRule,
-    MstxJsonFieldValidRule
+    MstxJsonFieldValidRule,
     PathExistsRule,
-    ValidationRule,
+    ValidationRule
 )
 from .verl_log_rules import VerlLogExistRule, VerlLogKeyParamsRule
 
