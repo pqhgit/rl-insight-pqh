@@ -26,13 +26,13 @@ PROJECT_ROOT = CURRENT_FILE.parents[2]
 
 
 def test_data_checker_multi_json_path_exists(tmp_path):
-    checker = DataChecker(data_type=DataEnum.MULTI_JSON, data=str(tmp_path))
+    checker = DataChecker(data_type=DataEnum.MULTI_JSON_MSTX, data=str(tmp_path))
     checker.run()
 
 
 def test_data_checker_multi_json_path_missing():
     checker = DataChecker(
-        data_type=DataEnum.MULTI_JSON, data="C:/definitely/not/exist/path"
+        data_type=DataEnum.MULTI_JSON_MSTX, data="C:/definitely/not/exist/path"
     )
     with pytest.raises(DataValidationError) as exc_info:
         checker.run()

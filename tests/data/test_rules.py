@@ -65,6 +65,8 @@ def test_mstx_json_fields_valid_with_fake_path():
     filed_rule = MstxJsonFieldValidRule()
     fake_path = "fake_path"
     assert filed_rule.check(fake_path) is False
+
+
 def test_verl_log_exist_accepts_verl_named_log(tmp_path):
     log = tmp_path / "train_verl_worker.log"
     log.write_text("verl job\n", encoding="utf-8")
