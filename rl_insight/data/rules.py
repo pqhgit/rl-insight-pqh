@@ -158,7 +158,7 @@ class MstxJsonFieldValidRule(ValidationRule):
                     self._error_message = f"File is empty: {trace_view_path}"
                     return False
 
-                required_keys = {'ph', 'name', 'pid', 'tid', 'ts'}
+                required_keys = {'ph', 'name', 'pid', 'tid'}
                 for row in trace_view_data:
                     missing_keys = required_keys - row.keys()
                     if missing_keys:

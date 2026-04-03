@@ -31,7 +31,8 @@ class DataEnum(Enum):
     """Enum for data types in RL-Insight."""
 
     # input data type of parser
-    MULTI_JSON = "multi_json"
+    MULTI_JSON_MSTX = "multi_json_mstx"  #解耦 multi_json_mstx, multi_json_torch
+    MULTI_JSON_TORCH = "multi_json_torch"
     VERL_LOG = "verl_log"
     # output data type of parser, input data type of visualizer
     SUMMARY_EVENT = "summary_event"
@@ -43,7 +44,8 @@ class DataChecker:
     """Base data class for RL-Insight."""
 
     rules: dict[DataEnum, List[ValidationRule]] = {
-        DataEnum.MULTI_JSON: [PathExistsRule(), MstxJsonFileExistsRule(), MstxJsonFieldValidRule()],
+        DataEnum.MULTI_JSON_MSTX: [PathExistsRule(), MstxJsonFileExistsRule(), MstxJsonFieldValidRule()],
+        DataEnum.MULTI_JSON_TORCH: [],
         DataEnum.VERL_LOG: [],
         DataEnum.SUMMARY_EVENT: [
             ParserOutputValidatorRule(
