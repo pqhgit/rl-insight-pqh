@@ -15,23 +15,27 @@
 """Base data definitions for RL-Insight."""
 
 from typing import Any, List
+
+from enum import Enum
+
+from loguru import logger
+
 from .rules import (
-    ValidationRule,
-    PathExistsRule,
     DataValidationError,
     ParserOutputValidatorRule,
     MstxJsonFileExistsRule,
     MstxJsonFieldValidRule
+    PathExistsRule,
+    ValidationRule,
 )
-from enum import Enum
-from loguru import logger
+from .verl_log_rules import VerlLogExistRule, VerlLogKeyParamsRule
 
 
 class DataEnum(Enum):
     """Enum for data types in RL-Insight."""
 
     # input data type of parser
-    MULTI_JSON_MSTX = "multi_json_mstx"  #解耦 multi_json_mstx, multi_json_torch
+    MULTI_JSON_MSTX = "multi_json_mstx"
     MULTI_JSON_TORCH = "multi_json_torch"
     VERL_LOG = "verl_log"
     # output data type of parser, input data type of visualizer
@@ -46,7 +50,7 @@ class DataChecker:
     rules: dict[DataEnum, List[ValidationRule]] = {
         DataEnum.MULTI_JSON_MSTX: [PathExistsRule(), MstxJsonFileExistsRule(), MstxJsonFieldValidRule()],
         DataEnum.MULTI_JSON_TORCH: [],
-        DataEnum.VERL_LOG: [],
+        DataEnum.VERL_LOG: [VerlLogExistRule(), VerlLogKeyParamsRule()],
         DataEnum.SUMMARY_EVENT: [
             ParserOutputValidatorRule(
                 domains=["role", "name", "rank_id", "start_time_ms", "end_time_ms"]
