@@ -35,7 +35,7 @@ def test_torch_e2e_with_input_path(monkeypatch, tmp_path):
         f"--input-path={input_dir}",
         f"--output-path={output_dir}",
         "--profiler-type=torch",
-        "--input-type=multi_json_torch"
+        "--input-type=multi_json_torch",
     ]
     monkeypatch.setattr(sys, "argv", test_args)
 

@@ -15,7 +15,7 @@
 import glob
 import json
 import os
-from typing import List, Any, List, Optional
+from typing import Any, List, Optional
 from abc import ABC, abstractmethod
 from pathlib import Path
 
@@ -102,7 +102,9 @@ class MstxJsonFileExistsRule(ValidationRule):
                     continue
 
                 # get trace_view.json file path
-                trace_view_path = ascend_pt_path / ascend_profiler_output / trace_view_filename
+                trace_view_path = (
+                    ascend_pt_path / ascend_profiler_output / trace_view_filename
+                )
                 if not trace_view_path.exists():
                     self._error_message = f"trace_view.json does not exist in: {ascend_pt_path}/ASCEND_PROFILER_OUTPUT"
                     return False
@@ -112,7 +114,9 @@ class MstxJsonFileExistsRule(ValidationRule):
                 profiler_files = glob.glob(profiler_pattern)
 
                 if not profiler_files:
-                    self._error_message = f"profiler_info_*.json does not exist in: {ascend_pt_path}"
+                    self._error_message = (
+                        f"profiler_info_*.json does not exist in: {ascend_pt_path}"
+                    )
                     return False
             return True
         except Exception as e:
@@ -147,18 +151,20 @@ class MstxJsonFieldValidRule(ValidationRule):
                 ascend_pt_path = Path(ascend_pt_folder)
 
                 # valid trace_view.json format
-                trace_view_path = ascend_pt_path / "ASCEND_PROFILER_OUTPUT" / "trace_view.json"
+                trace_view_path = (
+                    ascend_pt_path / "ASCEND_PROFILER_OUTPUT" / "trace_view.json"
+                )
                 if os.path.getsize(trace_view_path) == 0:
                     self._error_message = f"File is empty: {trace_view_path}"
                     return False
-                with open(trace_view_path, 'r', encoding='utf-8') as f:
+                with open(trace_view_path, "r", encoding="utf-8") as f:
                     trace_view_data = json.load(f)
 
                 if len(trace_view_data) == 0:
                     self._error_message = f"File is empty: {trace_view_path}"
                     return False
 
-                required_keys = {'ph', 'name', 'pid', 'tid'}
+                required_keys = {"ph", "name", "pid", "tid"}
                 for row in trace_view_data:
                     missing_keys = required_keys - row.keys()
                     if missing_keys:
@@ -172,15 +178,24 @@ class MstxJsonFieldValidRule(ValidationRule):
                     if os.path.getsize(trace_view_path) == 0:
                         self._error_message = f"File is empty: {trace_view_path}"
                         return False
-                    with open(file, 'r', encoding='utf-8') as f:
+                    with open(file, "r", encoding="utf-8") as f:
                         profiler_info_data = json.load(f)
                     if len(profiler_info_data) == 0:
                         self._error_message = f"File is empty: {file}"
                         return False
-                    required_keys = {'config', 'start_info', 'end_info', 'torch_npu_version', 'cann_version', 'rank_id'}
+                    required_keys = {
+                        "config",
+                        "start_info",
+                        "end_info",
+                        "torch_npu_version",
+                        "cann_version",
+                        "rank_id",
+                    }
                     missing_keys = required_keys - set(profiler_info_data.keys())
                     if missing_keys:
-                        self._error_message = f"File field is missing: {missing_keys} in FilePath: {file}"
+                        self._error_message = (
+                            f"File field is missing: {missing_keys} in FilePath: {file}"
+                        )
                         return False
             return True
         except Exception as e:

@@ -12,8 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from rl_insight.data.rules import (DataValidationError, PathExistsRule, MstxJsonFileExistsRule,
-                                   MstxJsonFieldValidRule)
+from rl_insight.data.rules import (
+    DataValidationError,
+    PathExistsRule,
+    MstxJsonFileExistsRule,
+    MstxJsonFieldValidRule,
+)
 from rl_insight.data.verl_log_rules import VerlLogExistRule, VerlLogKeyParamsRule
 from test_data_checker import MSTX_PROFILE_PATH
 

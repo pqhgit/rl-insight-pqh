@@ -26,7 +26,7 @@ from .rules import (
     MstxJsonFileExistsRule,
     MstxJsonFieldValidRule,
     PathExistsRule,
-    ValidationRule
+    ValidationRule,
 )
 from .verl_log_rules import VerlLogExistRule, VerlLogKeyParamsRule
 
@@ -48,7 +48,11 @@ class DataChecker:
     """Base data class for RL-Insight."""
 
     rules: dict[DataEnum, List[ValidationRule]] = {
-        DataEnum.MULTI_JSON_MSTX: [PathExistsRule(), MstxJsonFileExistsRule(), MstxJsonFieldValidRule()],
+        DataEnum.MULTI_JSON_MSTX: [
+            PathExistsRule(),
+            MstxJsonFileExistsRule(),
+            MstxJsonFieldValidRule(),
+        ],
         DataEnum.MULTI_JSON_TORCH: [],
         DataEnum.VERL_LOG: [VerlLogExistRule(), VerlLogKeyParamsRule()],
         DataEnum.SUMMARY_EVENT: [
