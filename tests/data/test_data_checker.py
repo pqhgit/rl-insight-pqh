@@ -23,10 +23,11 @@ from rl_insight.data.rules import DataValidationError
 
 CURRENT_FILE = Path(__file__).resolve()
 PROJECT_ROOT = CURRENT_FILE.parents[2]
+MSTX_PROFILE_PATH = PROJECT_ROOT / "data/mstx_data/mstx_profile"
 
 
-def test_data_checker_multi_json_path_exists(tmp_path):
-    checker = DataChecker(data_type=DataEnum.MULTI_JSON_MSTX, data=str(tmp_path))
+def test_data_checker_multi_json_path_exists():
+    checker = DataChecker(data_type=DataEnum.MULTI_JSON_MSTX, data=str(MSTX_PROFILE_PATH))
     checker.run()
 
 

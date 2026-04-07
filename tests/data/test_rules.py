@@ -15,11 +15,12 @@
 from rl_insight.data.rules import (DataValidationError, PathExistsRule, MstxJsonFileExistsRule,
                                    MstxJsonFieldValidRule)
 from rl_insight.data.verl_log_rules import VerlLogExistRule, VerlLogKeyParamsRule
+from test_data_checker import MSTX_PROFILE_PATH
 
 
-def test_path_exists_rule_accepts_existing_directory(tmp_path):
+def test_path_exists_rule_accepts_existing_directory():
     rule = PathExistsRule()
-    assert rule.check(str(tmp_path)) is True
+    assert rule.check(str(MSTX_PROFILE_PATH)) is True
 
 
 def test_path_exists_rule_rejects_non_string_input():
@@ -41,11 +42,11 @@ def test_data_validation_error_string_includes_error_details():
     assert "line2" in text
 
 
-def test_mstx_jsonfile_exists(profile="../../data/mstx_data/mstx_profile"):
+def test_mstx_jsonfile_exists():
     path_rule = PathExistsRule()
     file_rule = MstxJsonFileExistsRule()
-    assert path_rule.check(profile) is True
-    assert file_rule.check(profile) is True
+    assert path_rule.check(str(MSTX_PROFILE_PATH)) is True
+    assert file_rule.check(str(MSTX_PROFILE_PATH)) is True
 
 
 def test_mstx_jsonfile_exists_with_fake_path():
@@ -54,11 +55,11 @@ def test_mstx_jsonfile_exists_with_fake_path():
     assert file_rule.check(fake_path) is False
 
 
-def test_mstx_json_fields_valid(profile="../../data/mstx_data/mstx_profile"):
+def test_mstx_json_fields_valid():
     path_rule = PathExistsRule()
     filed_rule = MstxJsonFieldValidRule()
-    assert path_rule.check(profile) is True
-    assert filed_rule.check(profile) is True
+    assert path_rule.check(str(MSTX_PROFILE_PATH)) is True
+    assert filed_rule.check(str(MSTX_PROFILE_PATH)) is True
 
 
 def test_mstx_json_fields_valid_with_fake_path():
