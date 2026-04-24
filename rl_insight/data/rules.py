@@ -320,7 +320,7 @@ class TorchJsonFieldValidRule(ValidationRule):
                             return False
                         trace_events = json_data.get("traceEvents", [])
                         trace_valid = (
-                            isinstance(trace_events, list) and len(trace_events) > 1
+                            isinstance(trace_events, list) and len(trace_events) > 0
                         )
                         if not trace_valid:
                             self._error_message = f"The 'traceEvents' field is empty in FilePath: {json_gz_file}"
